@@ -31,6 +31,7 @@ type K9s struct {
 	ImageScans          ImageScans `json:"imageScans" yaml:"imageScans"`
 	Logger              Logger     `json:"logger" yaml:"logger"`
 	Thresholds          Threshold  `json:"thresholds" yaml:"thresholds"`
+	KubectlCommand      string     `json:"kubectlCommand" yaml:"kubectlCommand"`
 	manualRefreshRate   int
 	manualHeadless      *bool
 	manualLogoless      *bool
@@ -105,6 +106,7 @@ func (k *K9s) Merge(k1 *K9s) {
 	k.ShellPod = k1.ShellPod
 	k.Logger = k1.Logger
 	k.ImageScans = k1.ImageScans
+	k.KubectlCommand = k1.KubectlCommand
 	if k1.Thresholds != nil {
 		k.Thresholds = k1.Thresholds
 	}
@@ -323,6 +325,9 @@ func (k *K9s) Validate(c client.Connection, ks data.KubeSettings) {
 	}
 	if k.MaxConnRetry <= 0 {
 		k.MaxConnRetry = defaultMaxConnRetry
+	}
+	if k.KubectlCommand == "" {
+		k.KubectlCommand = defaultKubectlCmd
 	}
 
 	if k.getActiveConfig() == nil {

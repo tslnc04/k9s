@@ -54,7 +54,7 @@ func (s shellOpts) String() string {
 }
 
 func runK(a *App, opts shellOpts) error {
-	bin, err := exec.LookPath("kubectl")
+	bin, err := exec.LookPath(a.Config.K9s.KubectlCommand)
 	if errors.Is(err, exec.ErrDot) {
 		return fmt.Errorf("kubectl command must not be in the current working directory: %w", err)
 	}

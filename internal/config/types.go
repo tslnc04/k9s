@@ -6,6 +6,7 @@ package config
 const (
 	defaultRefreshRate  = 2
 	defaultMaxConnRetry = 5
+	defaultKubectlCmd   = "kubectl"
 )
 
 // UI tracks ui specific configs.
